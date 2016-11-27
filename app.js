@@ -99,7 +99,8 @@ client.registry
 		.registerGroups([
 			['misc', 'Misc'],
 			['mod', 'Moderation'],
-			['fun', 'Fun']
+			['fun', 'Fun'],
+			['anime', 'Anime']
 		])
 		.registerDefaults()
 		.registerCommandsIn(path.join(__dirname, 'commands'));
