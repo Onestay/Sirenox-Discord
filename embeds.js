@@ -1,5 +1,5 @@
 module.exports = class Embeds {
-	constructor(client, caseNumber, action, user, moderator, reason, duration, limit, channel) {
+	constructor(client, msg, caseNumber, action, user, moderator, reason, duration, limit, channel) {
 		this.client = client;
 		this.caseNumber = caseNumber;
 		this.action = action;
@@ -9,17 +9,17 @@ module.exports = class Embeds {
 		this.duration = duration;
 		this.limit = limit;
 		this.channel = channel;
+		this.fullMod = `${moderator.user.username}#${moderator.user.discriminator} (${moderator.user.id})`;
+		this.fullUser = `${user.user.username}#${user.user.discriminator} (${user.user.id})`;
 	}
 	banCase() {
 		let embed = {
-			color: 0x079E8,
+			color: 0xF50029,
 			author: {
-				name: this.client.user.username,
-					icon_url: this.client.user.avatarURL //eslint-disable-line
+				name: this.fullMod,
+					icon_url: this.moderator.user.avatarURL //eslint-disable-line
 			},
-			title: 'Discord Log Case',
 			url: 'http://thisisaplaceholderurltomaybeleadtoamodlogontheweb.com',
-			description: `Discord Log Case **${this.caseNumber}**`,
 			fields: [
 				{
 					name: 'Action',
@@ -27,13 +27,7 @@ module.exports = class Embeds {
 				},
 				{
 					name: 'User',
-					value: this.user,
-					inline: true
-				},
-				{
-					name: 'Mod',
-					value: this.moderator,
-					inline: true
+					value: this.fullUser
 				},
 				{
 					name: 'Reason',
@@ -50,9 +44,9 @@ module.exports = class Embeds {
 	}
 	purgeCase() {
 		let embed = {
-			color: 0x079E8,
+			color: 0xFFEE00,
 			author: {
-				name: this.client.user.username,
+				name: `Discord Log Case ${this.caseNumber}`,
 					icon_url: this.client.user.avatarURL //eslint-disable-line
 			},
 			title: 'Discord Log Case',
@@ -97,7 +91,7 @@ module.exports = class Embeds {
 				name: this.client.user.username,
 					icon_url: this.client.user.avatarURL //eslint-disable-line
 			},
-			title: 'Discord Log Case',
+			title: this.moderator,
 			url: 'http://thisisaplaceholderurltomaybeleadtoamodlogontheweb.com',
 			description: `Discord Log Case **${this.caseNumber}**`,
 			fields: [

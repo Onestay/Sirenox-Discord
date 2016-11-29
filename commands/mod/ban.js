@@ -62,12 +62,12 @@ module.exports = class BanCommand extends Command {
 			let caseNum = results[0].caseNumber;
 			let action = results[0].caseAction;
 			let UserID = results[0].caseUser;
-			let fullUser = `${msg.guild.members.get(UserID).user.username}#${msg.guild.members.get(UserID).user.discriminator} (${UserID})`;
+			let user = msg.guild.members.get(UserID);
 			let ModID = results[0].caseModerator;
-			let fullMod = `${msg.guild.members.get(ModID).user.username}#${msg.guild.members.get(ModID).user.discriminator} (${ModID})`;
+			let mod = msg.guild.members.get(ModID);
 			let reason = results[0].caseReason;
 
-			const newEmbed = new Embed(this.client, caseNum, action, fullUser, fullMod, reason, null, null, null, null);
+			const newEmbed = new Embed(this.client, msg, caseNum, action, user, mod, reason, null, null, null);
 			let embed = newEmbed.banCase();
 
 			let modChannel = msg.guild.channels.find('name', 'logtest');

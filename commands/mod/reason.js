@@ -50,20 +50,20 @@ module.exports = class ReasonCommand extends Command {
 		let caseNum = data.caseNumber;
 		let action = data.caseAction;
 		let UserID = data.caseUser;
-		let fullUser = `${msg.guild.members.get(UserID).user.username}#${msg.guild.members.get(UserID).user.discriminator} (${UserID})`;
 		let ModID = data.caseModerator;
 		let messageID = data.caseMessageID;
-		let fullMod = `${msg.guild.members.get(ModID).user.username}#${msg.guild.members.get(ModID).user.discriminator} (${ModID})`;
 		let newReason = reason;
+		let user = msg.guild.members.get(UserID);
+		let mod = msg.guild.members.get(ModID);
 
 		let modChannel = msg.guild.channels.find('name', 'logtest');
 		modChannel.fetchMessage(messageID)
 		.then(message => {
-			this.updateText(caseNum, action, fullUser, fullMod, newReason, message, msg);
+			this.updateText(caseNum, action, user, mod, newReason, message, msg);
 		});
 	}
-	async updateText(caseNum, action, fullUser, fullMod, reason, message, msg) {
-		const newEmbed = new Embed(this.client, caseNum, action, fullUser, fullMod, reason, null, null, null);
+	async updateText(caseNum, action, user, mod, reason, message, msg) {
+		const newEmbed = new Embed(this.client, msg, caseNum, action, user, mod, reason, null, null, null);
 		const embed = newEmbed.banCase();
 		sql.query('UPDATE `cases` SET `caseReason` = ? WHERE `caseNumber` = ?;', [reason, caseNum], (err, results) => {
 			if (err) msg.reply(`Ups... Error beim update der Reason ${err}, ${results}`);
