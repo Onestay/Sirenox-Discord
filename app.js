@@ -100,7 +100,7 @@ client.registry
 			['misc', 'Misc'],
 			['mod', 'Moderation'],
 			['fun', 'Fun'],
-			['anime', 'Anime']
+			['entertainment', 'Filme, Serien und Anime']
 		])
 		.registerDefaults()
 		.registerCommandsIn(path.join(__dirname, 'commands'));

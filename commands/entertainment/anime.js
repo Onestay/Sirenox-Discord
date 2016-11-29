@@ -14,11 +14,10 @@ module.exports = class AnimeCommand extends Command {
 	constructor(client) {
 		super(client, {
 			name: 'anime',
-			group: 'anime',
+			group: 'entertainment',
 			memberName: 'anime',
 			description: 'Informationen zu einer Anime Serie',
 			format: '<anime>',
-
 			args: [
 				{
 					key: 'anime',
@@ -121,7 +120,7 @@ module.exports = class AnimeCommand extends Command {
 					inline: true
 				}
 			],
-			thumpnail: { url: data.image_url_med },
+			thumbnail: { url: data.image_url_med },
 			footer: {
 			icon_url: msg.client.user.avatarURL, //eslint-disable-line 
 				text: `Started: ${moment.utc(data.start_date).format('DD.MM.YYYY')} | Finished: ${data.end_date !== null ? moment.utc(data.end_date).format('DD.MM.YYYY') : '?'}`
