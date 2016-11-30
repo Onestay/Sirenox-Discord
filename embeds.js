@@ -9,11 +9,12 @@ module.exports = class Embeds {
 		this.duration = duration;
 		this.limit = limit;
 		this.channel = channel;
-		this.fullMod = `${moderator.user.username}#${moderator.user.discriminator} (${moderator.user.id})`;
 		this.msg = msg;
 	}
 	banCase() {
 		this.fullUser = `${this.user.user.username}#${this.user.user.discriminator} (${this.user.id})`;
+		this.fullMod = `${this.moderator.user.username}#${this.moderator.user.discriminator} (${this.moderator.user.id})`;
+
 		let embed = {
 			color: 0xF50029,
 			author: {

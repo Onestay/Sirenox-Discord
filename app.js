@@ -4,19 +4,21 @@ const oneLine = require('common-tags').oneLine;
 const path = require('path');
 const { RankDB } = require('./mysql.js');
 const { TagDB } = require('./mysql.js');
+const Embed = require('./embeds.js');
+
 
 const config = require('./config.json');
 
 // creates the Discord Client, Tag and Rank DB Objects
 const SqlRank = new RankDB(config.rankHost, config.rankUser, config.rankPassword, config.rankDatabase);
-const SqlTag = new TagDB(config.tagHost, config.tagUser, config.tagPassword, config.caseDatabase);
+const SqlTag = new TagDB(config.tagHost, config.tagUser, config.tagPassword, config.tagDatabase);
+const SqlCase = new TagDB(config.tagHost, config.tagUser, config.tagPassword, config.caseDatabase);
+const sql = SqlCase.getConnection();
 
 const client = new commando.Client({
 	owner: config.owner,
 	commandPrefix: '!',
 	disableEveryone: true,
-	messageCacheLifetime: 30,
-	messageSweepInterval: 60,
 	unknownCommandResponse: false,
 	disabledEvents: [
 		'GUILD_CREATE',

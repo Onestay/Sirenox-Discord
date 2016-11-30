@@ -56,7 +56,7 @@ module.exports = class ReasonCommand extends Command {
 		let user = msg.guild.members.get(UserID);
 		let mod = msg.guild.members.get(ModID);
 
-		let modChannel = msg.guild.channels.find('name', 'logtest');
+		let modChannel = msg.guild.channels.find('name', 'mod_protokoll');
 		modChannel.fetchMessage(messageID)
 		.then(message => {
 			this.updateText(caseNum, action, user, mod, newReason, message, msg);

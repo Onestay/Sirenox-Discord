@@ -70,7 +70,7 @@ module.exports = class BanCommand extends Command {
 			const newEmbed = new Embed(this.client, msg, caseNum, action, user, mod, reason, null, null, null);
 			let embed = newEmbed.banCase();
 
-			let modChannel = msg.guild.channels.find('name', 'logtest');
+			let modChannel = msg.guild.channels.find('name', 'mod_protokoll');
 			return modChannel.sendMessage('', { embed })
 			.then(message => {
 				sql.query('UPDATE `cases` SET `caseMessageID` = ? WHERE `caseNumber` = ?', [message.id, caseNum], (er, res) => {

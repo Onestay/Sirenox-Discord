@@ -12,7 +12,7 @@ module.exports = class JoinCommand extends Command {
 	}
 
 	async run(msg) {
-		let initialRole = msg.guild.roles.find('name', 'Test');
+		let initialRole = msg.guild.roles.find('name', 'Xonerianer');
 		msg.delete();
 		msg.member.addRole(initialRole)
 		.then(res => winston.info(`Added ${res.user.username}#${res.user.discriminator} to the Server`))

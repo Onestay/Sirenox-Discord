@@ -48,7 +48,12 @@ module.exports = class PurgeCommand extends Command {
 	}
 	async run(msg, args) {
 		let limit = args.limit + 1;
-		let user = args.user.id;
+		let user;
+		if (args.user === '') {
+			user = 0;
+		} else {
+			user = args.user;
+		}
 		let query = args.content;
 		let reason = args.reason;
 		let caseNumber;
@@ -85,7 +90,7 @@ module.exports = class PurgeCommand extends Command {
 		return;
 	}
 
-	async purge(msg, args, limit) {
+	async purge(msg, limit) {
 		msg.channel.fetchMessages({ limit: limit })
 		.then(messages => {
 			msg.channel.bulkDelete(messages);
@@ -106,7 +111,7 @@ module.exports = class PurgeCommand extends Command {
 			const newEmbed = new Embed(this.client, msg, caseNum, action, null, mod, reason, null, limit, channelName);
 			let embed = newEmbed.purgeCase();
 
-			let modChannel = msg.guild.channels.find('name', 'logtest');
+			let modChannel = msg.guild.channels.find('name', 'mod_protokoll');
 			modChannel.sendMessage('', { embed })
 			.then(message => {
 				sql.query('UPDATE `cases` SET `caseMessageID` = ? WHERE `caseNumber` = ?', [message.id, caseNum], (er, res) => {
