@@ -12,8 +12,8 @@ module.exports = class Embeds {
 		this.msg = msg;
 	}
 	banCase() {
-		this.fullUser = `${this.user.user.username}#${this.user.user.discriminator} (${this.user.id})`;
-		this.fullMod = `${this.moderator.user.username}#${this.moderator.user.discriminator} (${this.moderator.user.id})`;
+		this.fullUser = `${this.user.username}#${this.user.discriminator} (${this.user.id})`;
+		this.fullMod = `${this.moderator.username}#${this.moderator.discriminator} (${this.user.id})`;
 
 		let embed = {
 			color: 0xF50029,

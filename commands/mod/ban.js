@@ -64,8 +64,8 @@ module.exports = class BanCommand extends Command {
 			let UserID = results[0].caseUser;
 			let ModID = results[0].caseModerator;
 			let reason = results[0].caseReason;
-			let user = msg.guild.members.get(UserID);
-			let mod = msg.guild.members.get(ModID);
+			let user = msg.client.users.get(UserID);
+			let mod = msg.client.users.get(ModID);
 
 			const newEmbed = new Embed(this.client, msg, caseNum, action, user, mod, reason, null, null, null);
 			let embed = newEmbed.banCase();

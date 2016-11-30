@@ -53,8 +53,8 @@ module.exports = class ReasonCommand extends Command {
 		let ModID = data.caseModerator;
 		let messageID = data.caseMessageID;
 		let newReason = reason;
-		let user = msg.guild.members.get(UserID);
-		let mod = msg.guild.members.get(ModID);
+		let user = msg.client.users.get(UserID);
+		let mod = msg.client.users.get(ModID);
 
 		let modChannel = msg.guild.channels.find('name', 'mod_protokoll');
 		modChannel.fetchMessage(messageID)
