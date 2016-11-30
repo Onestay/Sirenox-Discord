@@ -71,6 +71,7 @@ client.on('error', winston.error)
 			if (message.channel.id === '230637703266304000') {
 				message.delete();
 			}
+			if (message.author.id === '118425585163698183' && message.content === 'ayy') return message.channel.sendMessage('lmao')
 		});
 
 client.registry
