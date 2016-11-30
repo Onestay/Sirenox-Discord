@@ -23,7 +23,7 @@ module.exports = class PurgeCommand extends Command {
 				__links:__ Nachrichten die einen Link haben
 				__length #:__ Nachrichten länger als die angegebene Länge`,
 			format: '<limit> <filter> <args>',
-			examples: ['purge 10', 'purge 10 test nachricht', 'purge 10 invites', 'purge 10 user @Onestay|ステー#9756', 'purge 10 bots', 'pruge 10 uploads', 'purge 10 links', 'purge 10 length 50'],
+			examples: ['purge 10', 'purge 10 text test nachricht', 'purge 10 invites', 'purge 10 user @Onestay|ステー#9756', 'purge 10 bots', 'pruge 10 uploads', 'purge 10 links', 'purge 10 length 50'],
 			guildOnly: true,
 			argsType: 'multiple',
 			argsCount: 3
