@@ -19,7 +19,7 @@ module.exports = class Embeds {
 			color: 0xF50029,
 			author: {
 				name: this.fullMod,
-					icon_url: this.moderator.user.avatarURL //eslint-disable-line
+					icon_url: this.moderator.avatarURL //eslint-disable-line
 			},
 			url: 'http://thisisaplaceholderurltomaybeleadtoamodlogontheweb.com',
 			fields: [
