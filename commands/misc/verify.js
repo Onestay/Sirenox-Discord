@@ -1,0 +1,15 @@
+const { Command } = require('discord.js-commando');
+
+module.exports = class PingCommand extends Command {
+	constructor(client) {
+		super(client, {
+			name: 'wetter',
+			group: 'misc',
+			memberName: 'wetter',
+			description: 'Soon'
+		});
+	}
+	async run(msg) { //eslint-disable-line
+		msg.channel.sendMessage('Wegen neuen Bot und neuer Framework geht das alte Verify Command nicht mehr.\nEin neues kommt ASAP <3');
+	}
+};
