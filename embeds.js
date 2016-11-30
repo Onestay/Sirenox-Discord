@@ -10,9 +10,10 @@ module.exports = class Embeds {
 		this.limit = limit;
 		this.channel = channel;
 		this.fullMod = `${moderator.user.username}#${moderator.user.discriminator} (${moderator.user.id})`;
-		this.fullUser = `${user.user.username}#${user.user.discriminator} (${user.user.id})`;
+		this.msg = msg;
 	}
 	banCase() {
+		this.fullUser = `${this.user.user.username}#${this.user.user.discriminator} (${this.user.id})`;
 		let embed = {
 			color: 0xF50029,
 			author: {
@@ -46,12 +47,9 @@ module.exports = class Embeds {
 		let embed = {
 			color: 0xFFEE00,
 			author: {
-				name: `Discord Log Case ${this.caseNumber}`,
-					icon_url: this.client.user.avatarURL //eslint-disable-line
+				name: this.fullMod,
+					icon_url: this.moderator.user.avatarURL //eslint-disable-line
 			},
-			title: 'Discord Log Case',
-			url: 'http://thisisaplaceholderurltomaybeleadtoamodlogontheweb.com',
-			description: `Discord Log Case **${this.caseNumber}**`,
 			fields: [
 				{
 					name: 'Action',
@@ -59,17 +57,11 @@ module.exports = class Embeds {
 				},
 				{
 					name: 'Channel',
-					value: this.channel,
-					inline: true
+					value: this.channel
 				},
 				{
-					name: 'Messages',
-					value: this.limit,
-					inline: true
-				},
-				{
-					name: 'Mod',
-					value: this.moderator
+					name: 'Purged Messages',
+					value: this.limit - 1
 				},
 				{
 					name: 'Reason',
