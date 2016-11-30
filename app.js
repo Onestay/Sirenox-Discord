@@ -57,7 +57,6 @@ client.on('error', winston.error)
 					Sirenox is Ready!
 					${client.user.username}#${client.user.discriminator} (${client.user.id})
 					`);
-			client.user.setGame('!help für commands');
 		})
 		.on('disconnect', () => { winston.warn('Disconnected!'); })
 		.on('reconnect', () => { winston.warn('Reconnecting...'); })
