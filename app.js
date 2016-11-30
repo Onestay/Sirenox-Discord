@@ -57,6 +57,7 @@ client.on('error', winston.error)
 					Sirenox is Ready!
 					${client.user.username}#${client.user.discriminator} (${client.user.id})
 					`);
+			winston.info(`Guilds: ${client.guilds.size} Channels: ${client.channels.size} Users: ${client.users.size} Ready at: ${client.readyAt}`);
 		})
 		.on('disconnect', () => { winston.warn('Disconnected!'); })
 		.on('reconnect', () => { winston.warn('Reconnecting...'); })
