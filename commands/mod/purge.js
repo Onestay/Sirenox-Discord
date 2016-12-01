@@ -1,5 +1,4 @@
 const { Command } = require('discord.js-commando');
-const oneline = require('common-tags').oneLine;
 const { TagDB } = require('../../mysql.js');
 const config = require('../../config.json');
 const SqlTag = new TagDB(config.tagHost, config.tagUser, config.tagPassword, config.caseDatabase);
@@ -91,7 +90,7 @@ module.exports = class PurgeCommand extends Command {
 			});
 		}
 
-		sql.query('INSERT INTO `cases`(`caseAction`, `caseModerator`,`caseReason`,`caseMessageID`, `caseChannel`, `caseLimit`) VALUES ("Purge", ?, ?, ?, ?, ?)', [msg.author.id, 'None', 'Placeholder', msg.channel.id, limit], (err, results) => {
+		sql.query('INSERT INTO `cases`(`caseAction`, `caseModerator`,`caseReason`,`caseMessageID`, `caseChannel`, `caseLimit`, `casePurgeFilter`) VALUES ("Purge", ?, ?, ?, ?, ?, ?)', [msg.author.id, 'None', 'Placeholder', msg.channel.id, limit, args[2] === 0 ? args[1] : `${args[1]}: ${args[2]}`], (err, results) => {
 			if (err) return msg.reply(`Ups... Querry Error: ${err}`);
 			caseNumber = results.insertId;
 			this.message(caseNumber, msg);
@@ -104,14 +103,15 @@ module.exports = class PurgeCommand extends Command {
 			let action = results[0].caseAction;
 			let ModID = results[0].caseModerator;
 			let reason = results[0].caseReason;
-			let mod = msg.guild.members.get(ModID);
+			let mod = this.client.users.get(ModID);
 			let channel = msg.guild.channels.get(results[0].caseChannel);
 			let channelName = channel.name;
 			let limit = results[0].caseLimit;
-			const newEmbed = new Embed(this.client, msg, caseNum, action, null, mod, reason, null, limit, channelName);
+			let filter = results[0].casePurgeFilter;
+			const newEmbed = new Embed(this.client, msg, caseNum, action, null, mod, reason, null, limit, channelName, filter);
 			let embed = newEmbed.purgeCase();
 
-			let modChannel = msg.guild.channels.find('name', 'mod_protokoll');
+			let modChannel = msg.guild.channels.find('name', 'logtest');
 			modChannel.sendMessage('', { embed })
 			.then(message => {
 				sql.query('UPDATE `cases` SET `caseMessageID` = ? WHERE `caseNumber` = ?', [message.id, caseNum], (er, res) => {
@@ -121,4 +121,3 @@ module.exports = class PurgeCommand extends Command {
 		});
 	}
 };
-// fuck this fucking fuck I'll do that later

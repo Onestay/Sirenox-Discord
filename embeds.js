@@ -1,5 +1,5 @@
 module.exports = class Embeds {
-	constructor(client, msg, caseNumber, action, user, moderator, reason, duration, limit, channel) {
+	constructor(client, msg, caseNumber, action, user, moderator, reason, duration, limit, channel, filter) {
 		this.client = client;
 		this.caseNumber = caseNumber;
 		this.action = action;
@@ -10,10 +10,11 @@ module.exports = class Embeds {
 		this.limit = limit;
 		this.channel = channel;
 		this.msg = msg;
+		this.filter = filter;
 	}
 	banCase() {
 		this.fullUser = `${this.user.username}#${this.user.discriminator} (${this.user.id})`;
-		this.fullMod = `${this.moderator.username}#${this.moderator.discriminator} (${this.user.id})`;
+		this.fullMod = `${this.moderator.username}#${this.moderator.discriminator} (${this.moderator.id})`;
 
 		let embed = {
 			color: 0xF50029,
@@ -45,11 +46,12 @@ module.exports = class Embeds {
 		return embed;
 	}
 	purgeCase() {
+		this.fullMod = `${this.moderator.username}#${this.moderator.discriminator} (${this.moderator.id})`;
 		let embed = {
 			color: 0xFFEE00,
 			author: {
 				name: this.fullMod,
-					icon_url: this.moderator.user.avatarURL //eslint-disable-line
+					icon_url: this.moderator.avatarURL //eslint-disable-line
 			},
 			fields: [
 				{
@@ -62,7 +64,13 @@ module.exports = class Embeds {
 				},
 				{
 					name: 'Purged Messages',
-					value: this.limit - 1
+					value: this.limit - 1,
+					inline: true
+				},
+				{
+					name: 'Filter',
+					value: this.filter,
+					inline: true
 				},
 				{
 					name: 'Reason',

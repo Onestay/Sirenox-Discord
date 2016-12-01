@@ -40,11 +40,34 @@ module.exports = class ReasonCommand extends Command {
 			if (err) msg.reply(`Ups... es ist ein Fehler bei der Query für den Case aufgetreten ${err}`);
 			let data = results[0];
 			if (msg.author.id !== results[0].caseModerator && msg.author.id !== msg.guild.ownerID) return msg.reply('nur der Mod, der gebannt oder gekickt hat kann den Grund ändern');
+			if (results[0].caseChannel !== null) return this.updatePurgeReason(msg, data, reason);
 			if (results[0].caseReason !== 'None') {
 				this.forceUpdateText(msg, data, reason);
 				return;
 			}
 			this.fetchMessage(msg, data, reason);
+		});
+	}
+	async updatePurgeReason(msg, data, reason) {
+		let caseNum = data.caseNumber;
+		let action = data.caseAction;
+		let ModID = data.caseModerator;
+		let mod = this.client.users.get(ModID);
+		let channel = msg.guild.channels.get(data.caseChannel);
+		let channelName = channel.name;
+		let limit = data.caseLimit;
+		let filter = data.casePurgeFilter;
+		let messageID = data.caseMessageID;
+		const newEmbed = new Embed(this.client, msg, caseNum, action, null, mod, reason, null, limit, channelName, filter);
+		let embed = newEmbed.purgeCase();
+
+		let modChannel = msg.guild.channels.find('name', 'logtest');
+		modChannel.fetchMessage(messageID)
+		.then(message => {
+			sql.query('UPDATE `cases` SET `caseReason` = ? WHERE `caseNumber` = ?;', [reason, caseNum], (err, results) => {
+				if (err) msg.reply(`Ups... Error beim update der Reason ${err}, ${results}`);
+			});
+			message.edit('', { embed });
 		});
 	}
 	async fetchMessage(msg, data, reason) {
@@ -57,7 +80,7 @@ module.exports = class ReasonCommand extends Command {
 		let user = msg.client.users.get(UserID);
 		let mod = msg.client.users.get(ModID);
 
-		let modChannel = msg.guild.channels.find('name', 'mod_protokoll');
+		let modChannel = msg.guild.channels.find('name', 'logtest');
 		modChannel.fetchMessage(messageID)
 		.then(message => {
 			this.updateText(caseNum, action, user, mod, newReason, message, msg);
