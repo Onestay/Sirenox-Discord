@@ -6,7 +6,8 @@ module.exports = class WetterCommand extends Command {
 			name: 'wetter',
 			group: 'misc',
 			memberName: 'wetter',
-			description: 'Soon'
+			description: 'Soon',
+			guildOnly: true
 		});
 	}
 	async run(msg) { //eslint-disable-line

@@ -7,7 +7,8 @@ module.exports = class JoinCommand extends Command {
 			name: 'join',
 			group: 'misc',
 			memberName: 'join',
-			description: 'Wird benutzt um den Rest des Servers freizuschalten'
+			description: 'Wird benutzt um den Rest des Servers freizuschalten',
+			guildOnly: true
 		});
 	}
 

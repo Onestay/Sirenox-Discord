@@ -14,6 +14,7 @@ module.exports = class BanCommand extends Command {
 			memberName: 'kick',
 			description: 'Kickt einen Nutzer vom Server',
 			format: '<user> <reason>',
+			guildOnly: true,
 
 			args: [
 				{

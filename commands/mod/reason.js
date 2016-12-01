@@ -27,7 +27,8 @@ module.exports = class ReasonCommand extends Command {
 					type: 'string',
 					max: 200
 				}
-			]
+			],
+			guildOnly: true
 		});
 	}
 	async run(msg, args) {

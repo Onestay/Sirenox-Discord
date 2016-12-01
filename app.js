@@ -79,7 +79,8 @@ client.registry
 			['misc', 'Misc'],
 			['mod', 'Moderation'],
 			['fun', 'Fun'],
-			['entertainment', 'Filme, Serien und Anime']
+			['entertainment', 'Filme, Serien und Anime'],
+			['info', 'Informationen']
 		])
 		.registerDefaults()
 		.registerCommandsIn(path.join(__dirname, 'commands'));

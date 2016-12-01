@@ -6,7 +6,8 @@ module.exports = class VerifyCommand extends Command {
 			name: 'verify',
 			group: 'misc',
 			memberName: 'verify',
-			description: 'Soon'
+			description: 'Soon',
+			guildOnly: true
 		});
 	}
 	async run(msg) { //eslint-disable-line
