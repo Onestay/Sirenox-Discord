@@ -52,7 +52,7 @@ module.exports = class UrbanCommand extends Command {
 				json: true
 			}, (err, response, body) => {
 				if (err) reject(err);
-				if (body.result_type === 'no_results') reject('Dieses Wort existiert nicht.');
+				if (body.result_type === 'no_results') return reject('Dieses Wort existiert nicht.');
 				resolve(body.list[0]);
 			});
 		});
