@@ -86,7 +86,7 @@ module.exports = class AnimeCommand extends Command {
 			fields: [
 				{
 					name: 'Typ',
-					value: `${data.type}\n${data.season !== null ? this.parseSeason(data.season) : '?'}\n${data.source !== null ? data.source : '?'}`,
+					value: `${data.type}\n${data.season !== null ? this.parseSeason(data.season) : 'Keine Season Daten'}\n${data.source !== null ? data.source : 'Keine Source Daten'}`,
 					inline: true
 				},
 				{
@@ -123,7 +123,7 @@ module.exports = class AnimeCommand extends Command {
 			thumbnail: { url: data.image_url_med },
 			footer: {
 			icon_url: msg.client.user.avatarURL, //eslint-disable-line 
-				text: `Started: ${moment.utc(data.start_date).format('DD.MM.YYYY')} | Finished: ${data.end_date !== null ? moment.utc(data.end_date).format('DD.MM.YYYY') : '?'}`
+				text: `Angefangen: ${moment.utc(data.start_date).format('DD.MM.YYYY')} | Beendet: ${data.end_date !== null ? moment.utc(data.end_date).format('DD.MM.YYYY') : 'Kein End Datum'}`
 			}
 		};
 		return msg.channel.sendMessage('', { embed });
