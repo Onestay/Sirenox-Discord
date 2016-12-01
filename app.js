@@ -35,7 +35,11 @@ client.on('error', winston.error)
 					`);
 			winston.info(`Guilds: ${client.guilds.size} Channels: ${client.channels.size} Users: ${client.users.size} Ready at: ${client.readyAt}`);
 		})
-		.on('disconnect', () => { winston.warn('Disconnected!'); })
+		.on('disconnect', () => { 
+			winston.warn('Disconnected!');
+			// dirty fix to the bot sometimes random disconnecting and not Reconnecting
+			process.exit(0);
+		})
 		.on('reconnect', () => { winston.warn('Reconnecting...'); })
 		.on('commandError', (cmd, err) => {
 			if (err instanceof commando.FriendlyError) return;
