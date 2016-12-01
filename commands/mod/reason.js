@@ -61,7 +61,7 @@ module.exports = class ReasonCommand extends Command {
 		const newEmbed = new Embed(this.client, msg, caseNum, action, null, mod, reason, null, limit, channelName, filter);
 		let embed = newEmbed.purgeCase();
 
-		let modChannel = msg.guild.channels.find('name', 'logtest');
+		let modChannel = msg.guild.channels.find('name', 'mod_protokoll');
 		modChannel.fetchMessage(messageID)
 		.then(message => {
 			sql.query('UPDATE `cases` SET `caseReason` = ? WHERE `caseNumber` = ?;', [reason, caseNum], (err, results) => {
@@ -80,7 +80,7 @@ module.exports = class ReasonCommand extends Command {
 		let user = msg.client.users.get(UserID);
 		let mod = msg.client.users.get(ModID);
 
-		let modChannel = msg.guild.channels.find('name', 'logtest');
+		let modChannel = msg.guild.channels.find('name', 'mod_protokoll');
 		modChannel.fetchMessage(messageID)
 		.then(message => {
 			this.updateText(caseNum, action, user, mod, newReason, message, msg);

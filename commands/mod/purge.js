@@ -111,7 +111,7 @@ module.exports = class PurgeCommand extends Command {
 			const newEmbed = new Embed(this.client, msg, caseNum, action, null, mod, reason, null, limit, channelName, filter);
 			let embed = newEmbed.purgeCase();
 
-			let modChannel = msg.guild.channels.find('name', 'logtest');
+			let modChannel = msg.guild.channels.find('name', 'mod_protokoll');
 			modChannel.sendMessage('', { embed })
 			.then(message => {
 				sql.query('UPDATE `cases` SET `caseMessageID` = ? WHERE `caseNumber` = ?', [message.id, caseNum], (er, res) => {
