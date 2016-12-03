@@ -65,7 +65,7 @@ module.exports = class ReasonCommand extends Command {
 		const newEmbed = new Embed(this.client, msg, caseNum, action, null, mod, reason, null, limit, channelName, filter);
 		let embed = newEmbed.purgeCase();
 
-		let modChannel = msg.guild.channels.find('name', 'mod_protokoll');
+		let modChannel = msg.guild.channels.find('name', 'General');
 		modChannel.fetchMessage(messageID)
 		.then(message => {
 			sql.query('UPDATE `cases` SET `caseReason` = ? WHERE `caseNumber` = ?;', [reason, caseNum], (err, results) => {

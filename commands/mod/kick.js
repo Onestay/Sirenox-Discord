@@ -54,6 +54,7 @@ module.exports = class BanCommand extends Command {
 		sql.query('INSERT INTO `cases`(`caseAction`,`caseUser`,`caseModerator`,`caseReason`,`caseMessageID`) VALUES ("Kick",?,?,?,"Placeholder")', [user.id, msg.author.id, reason.length === 0 ? 'None' : reason], (err, results) => {
 			if (err) return msg.reply(`Ups... es gab ein Error beim Hinzufügen des Log Cases ${err}, ${results}`);
 			caseNumber = results.insertId;
+			msg.channel.sendMessage(`Benutze jetzt \`!reason ${caseNumber} <reason>\` um den Grund zu ändern`);
 			this.message(caseNumber, msg);
 			member.kick();
 		});

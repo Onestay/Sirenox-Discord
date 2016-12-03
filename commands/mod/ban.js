@@ -55,6 +55,7 @@ module.exports = class BanCommand extends Command {
 			if (err) return msg.reply(`Ups... es gab ein Error beim Hinzufügen des Log Cases ${err}, ${results}`);
 			caseNumber = results.insertId;
 			this.message(caseNumber, msg);
+			msg.channel.sendMessage(`Benutze jetzt \`!reason ${caseNumber} <reason>\` um den Grund zu ändern`);
 			member.ban();
 		});
 	}

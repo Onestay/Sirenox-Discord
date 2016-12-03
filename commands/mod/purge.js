@@ -30,7 +30,7 @@ module.exports = class PurgeCommand extends Command {
 	}
 
 	hasPermission(msg) {
-		return msg.member.roles.find('name', 'General');
+		return msg.member.roles.find('name', 'Test');
 	}
 
 	async run(msg, args) {
@@ -97,6 +97,7 @@ module.exports = class PurgeCommand extends Command {
 		sql.query('INSERT INTO `cases`(`caseAction`, `caseModerator`,`caseReason`,`caseMessageID`, `caseChannel`, `caseLimit`, `casePurgeFilter`) VALUES ("Purge", ?, ?, ?, ?, ?, ?)', [msg.author.id, 'None', 'Placeholder', msg.channel.id, limit, args[2] === 0 ? args[1] : `${args[1]}: ${args[2]}`], (err, results) => {
 			if (err) return msg.reply(`Ups... Querry Error: ${err}`);
 			caseNumber = results.insertId;
+			msg.channel.sendMessage(`Benutze jetzt \`!reason ${caseNumber} <reason>\` um den Grund zu ändern`);
 			this.message(caseNumber, msg);
 		});
 	}
