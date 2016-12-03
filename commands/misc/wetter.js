@@ -70,7 +70,7 @@ module.exports = class WetterCommand extends Command {
 	async getWeatherData(res) {
 		return new Promise((resolve, reject) => {
 			request({
-				uri: `https://api.darksky.net/forecast/${config.darkSkyApi}/${res.lat},${res.lng}?exclude=minutely&lang=de&units=ca`,
+				uri: `https://api.darksky.net/forecast/${config.darkSkyApi}/${res.lat},${res.lng}?exclude=minutely&lang=de&units=si`,
 				headers: { 'User-Agent': `Sirenox ${version} (https://github.com/onestay/sirenox-discord)` },
 				json: true
 			}, (err, response, body) => {
@@ -115,7 +115,7 @@ module.exports = class WetterCommand extends Command {
 		**${temp}°C**			      
 								Niederschlag: ${precip.toFixed(2)}%
 						    	Luftfeutchte: ${humidity.toFixed(2)}%
-						    	Wind: ${windSpeed} km/h
+						    	Wind: ${windSpeed} m/s
 
 Sonnenaufgang: ${formSunrise}	Sonnenuntergang: ${formSunset} 
 \n\u200b
