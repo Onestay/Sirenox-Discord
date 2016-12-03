@@ -33,13 +33,15 @@ module.exports = class BanCommand extends Command {
 		});
 	}
 
+	hasPermission(msg) {
+		return msg.member.roles.find('name', 'General');
+	}
+
 	async run(msg, args) {
 		if (!msg.guild.member(this.client.user.id).hasPermission('KICK_MEMBERS')) {
 			return msg.reply(`ich habe keine Rechte um zu kicken.`);
 		}
-		if (!msg.member.hasPermission('KICK_MEMBERS')) {
-			return msg.reply('du hast keine Rechte um zu kicken');
-		}
+
 		const user = args.user;
 		const reason = args.reason;
 		const member = msg.guild.member(this.client.users.get(user.id));

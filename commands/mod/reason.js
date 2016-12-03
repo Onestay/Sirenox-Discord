@@ -31,11 +31,15 @@ module.exports = class ReasonCommand extends Command {
 			guildOnly: true
 		});
 	}
+
+	hasPermission(msg) {
+		return msg.member.roles.find('name', 'General');
+	}
+
 	async run(msg, args) {
 		let caseNumber = args.caseNumber;
 		let reason = args.reason;
 
-		if (!msg.member.hasPermission('BAN_MEMBERS' || !msg.member.hasPermission('KICK_MEMBERS'))) return msg.reply(' du hast keine Rechte den Grund eines Log Cases zu ändern');
 		sql.query('SELECT * FROM `cases` WHERE `caseNumber` = ?', [caseNumber], (err, results) => {
 			if (err) msg.reply(`Ups... es ist ein Fehler bei der Query für den Case aufgetreten ${err}`);
 			let data = results[0];

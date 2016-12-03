@@ -28,9 +28,13 @@ module.exports = class PurgeCommand extends Command {
 			argsCount: 3
 		});
 	}
+
+	hasPermission(msg) {
+		return msg.member.roles.find('name', 'General');
+	}
+
 	async run(msg, args) {
 		let caseNumber;
-		if (!msg.member.hasPermission('MANAGE_MESSAGES')) return msg.reply('du hast keine Rechte Nachrichten zu löschen');
 		if (!msg.guild.member(this.client.user.id).hasPermission('MANAGE_MESSAGES')) return msg.reply('Ich habe keine Rechte Nachrichten zu Löschen');
 		if (!args[0] || isNaN(args[0])) {
 			msg.channel.sendMessage('Gebe eine Zahl an, die gepurgt werden soll');
