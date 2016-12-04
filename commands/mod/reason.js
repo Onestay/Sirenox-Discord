@@ -45,6 +45,7 @@ module.exports = class ReasonCommand extends Command {
 			let data = results[0];
 			if (msg.author.id !== results[0].caseModerator && msg.author.id !== msg.guild.ownerID) return msg.reply('nur der Mod, der gebannt oder gekickt hat kann den Grund ändern');
 			if (results[0].caseChannel !== null) return this.updatePurgeReason(msg, data, reason);
+			if (results[0].caseModerator === 'Es wird auf eine Reason gewartet') return this.updateEventReason(msg, data, reason);
 			if (results[0].caseReason !== 'None') {
 				this.forceUpdateText(msg, data, reason);
 				return;
@@ -52,6 +53,7 @@ module.exports = class ReasonCommand extends Command {
 			this.fetchMessage(msg, data, reason);
 		});
 	}
+
 	async updatePurgeReason(msg, data, reason) {
 		let caseNum = data.caseNumber;
 		let action = data.caseAction;
@@ -65,12 +67,35 @@ module.exports = class ReasonCommand extends Command {
 		const newEmbed = new Embed(this.client, msg, caseNum, action, null, mod, reason, null, limit, channelName, filter);
 		let embed = newEmbed.purgeCase();
 
-		let modChannel = msg.guild.channels.find('name', 'General');
+		let modChannel = msg.guild.channels.find('name', 'mod-protokoll');
 		modChannel.fetchMessage(messageID)
 		.then(message => {
 			sql.query('UPDATE `cases` SET `caseReason` = ? WHERE `caseNumber` = ?;', [reason, caseNum], (err, results) => {
 				if (err) msg.reply(`Ups... Error beim update der Reason ${err}, ${results}`);
 			});
+			message.edit('', { embed });
+		});
+	}
+	async updateEventReason(msg, data, reason) {
+		let caseNum = data.caseNumber;
+		let action = data.caseAction;
+		let mod = msg.author;
+		let UserID = data.caseUser;
+		let messageID = data.caseMessageID;
+		let newReason = reason;
+		let user = msg.client.users.get(UserID);
+		const newEmbed = new Embed(this.client, msg, caseNum, action, user, mod, newReason);
+		const embed = newEmbed.banCase();
+
+		let modChannel = msg.guild.channels.find('name', 'mod_protokoll');
+
+
+		sql.query('UPDATE `cases` SET `caseReason` = ?, `caseModerator` = ? WHERE `caseNumber` = ?', [newReason, mod.id, caseNum], (err, res) => {
+			if (err) msg.reply(`Ups... Error beim update der Reason ${err}, ${res}`);
+		});
+
+		modChannel.fetchMessage(messageID)
+		.then(message => {
 			message.edit('', { embed });
 		});
 	}

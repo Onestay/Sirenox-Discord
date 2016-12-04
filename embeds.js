@@ -9,7 +9,6 @@ module.exports = class Embeds {
 		this.duration = duration;
 		this.limit = limit;
 		this.channel = channel;
-		this.msg = msg;
 		this.filter = filter;
 	}
 	banCase() {
@@ -113,6 +112,38 @@ module.exports = class Embeds {
 				{
 					name: 'Länge',
 					value: this.duration
+				},
+				{
+					name: 'Reason',
+					value: this.reason
+				}
+			],
+			timestamp: new Date(),
+			footer: {
+				icon_url: this.client.user.avatarURL, //eslint-disable-line
+				text: `Log Case ${this.caseNumber}`
+			}
+		};
+		return embed;
+	}
+	eventCase() {
+		this.fullUser = `${this.user.username}#${this.user.discriminator} (${this.user.id})`;
+
+		let embed = {
+			color: 0xF50029,
+			author: {
+				name: this.moderator,
+					icon_url: this.client.user.avatarURL //eslint-disable-line
+			},
+			url: 'http://thisisaplaceholderurltomaybeleadtoamodlogontheweb.com',
+			fields: [
+				{
+					name: 'Action',
+					value: `${this.action}`
+				},
+				{
+					name: 'User',
+					value: this.fullUser
 				},
 				{
 					name: 'Reason',

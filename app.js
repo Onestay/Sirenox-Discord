@@ -4,16 +4,13 @@ const oneLine = require('common-tags').oneLine;
 const path = require('path');
 const { RankDB } = require('./mysql.js');
 const { TagDB } = require('./mysql.js');
-const Embed = require('./embeds.js');
-
+const guildBanAdd = require(path.join(__dirname, 'events/guildBanAdd.js'));
 
 const config = require('./config.json');
 
 // creates the Discord Client, Tag and Rank DB Objects
 const SqlRank = new RankDB(config.rankHost, config.rankUser, config.rankPassword, config.rankDatabase);
 const SqlTag = new TagDB(config.tagHost, config.tagUser, config.tagPassword, config.tagDatabase);
-const SqlCase = new TagDB(config.tagHost, config.tagUser, config.tagPassword, config.caseDatabase);
-const sql = SqlCase.getConnection();
 
 const client = new commando.Client({
 	owner: config.owner,
@@ -35,7 +32,7 @@ client.on('error', winston.error)
 					`);
 			winston.info(`Guilds: ${client.guilds.size} Channels: ${client.channels.size} Users: ${client.users.size} Ready at: ${client.readyAt}`);
 		})
-		.on('disconnect', () => { 
+		.on('disconnect', () => {
 			winston.warn('Disconnected!');
 			// dirty fix to the bot sometimes random disconnecting and not Reconnecting
 			process.exit(0);
@@ -76,6 +73,9 @@ client.on('error', winston.error)
 				message.delete();
 			}
 			if (message.author.id === '118425585163698183' && message.content === 'ayy') return message.channel.sendMessage('lmao')
+		})
+		.on('guildBanAdd', (guild, user) => {
+			guildBanAdd(user, guild, client);
 		});
 
 client.registry
