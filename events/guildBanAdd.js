@@ -5,7 +5,7 @@ const sql = SqlTag.getConnection();
 const Embed = require('../embeds.js');
 
 module.exports = function start(user, guild, client) {
-	let modChannel = guild.channels.find('name', 'mod-protokoll');
+	let modChannel = guild.channels.find('name', 'mod_protokoll');
 	let caseNumber;
 	sql.query('INSERT INTO `cases`(`caseAction`, `caseUser`, `caseModerator`, `caseReason`, `caseMessageID`) VALUES("Ban",?,"Es wird auf eine Reason gewartet", "None", "Placeholder")', [user.id], (err, res) => {
 		if (err) modChannel.sendMessage(`Error Querying: ${err}`);
