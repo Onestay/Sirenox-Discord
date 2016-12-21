@@ -5,7 +5,6 @@ const path = require('path');
 const { RankDB } = require('./mysql.js');
 const { TagDB } = require('./mysql.js');
 const guildBanAdd = require(path.join(__dirname, 'events/guildBanAdd.js'));
-
 const config = require('./config.json');
 
 // creates the Discord Client, Tag and Rank DB Objects
@@ -72,7 +71,6 @@ client.on('error', winston.error)
 			if (message.channel.id === '230637703266304000') {
 				message.delete();
 			}
-			if (message.author.id === '118425585163698183' && message.content === 'ayy') return message.channel.sendMessage('lmao')
 		})
 		.on('guildBanAdd', (guild, user) => {
 			guildBanAdd(user, guild, client);
@@ -88,6 +86,7 @@ client.registry
 		])
 		.registerDefaults()
 		.registerCommandsIn(path.join(__dirname, 'commands'));
+
 
 SqlTag.connect();
 SqlRank.connect();

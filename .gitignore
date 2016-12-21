@@ -39,3 +39,4 @@ jspm_packages
 #custom stuff
 .vscode
 config.json
+.tern-project

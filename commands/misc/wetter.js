@@ -3,10 +3,7 @@ const moment = require('moment');
 const request = require('request');
 const config = require('../../config.json');
 const version = require('../../package').version;
-const path = require('path');
-const stripIndents = require('common-tags').stripIndents;
 require('moment-timezone');
-const winston = require('winston');
 
 module.exports = class WetterCommand extends Command {
 	constructor(client) {
@@ -112,12 +109,12 @@ module.exports = class WetterCommand extends Command {
 					**${formattedAdress}**
 
 		${time}
-		**${temp}°C**			      
+		**${temp}°C**
 								Niederschlag: ${precip.toFixed(2)}%
 						    	Luftfeutchte: ${humidity.toFixed(2)}%
 						    	Wind: ${windSpeed} m/s
 
-Sonnenaufgang: ${formSunrise}	Sonnenuntergang: ${formSunset} 
+Sonnenaufgang: ${formSunrise}	Sonnenuntergang: ${formSunset}
 \n\u200b
 			`,
 			fields: [
