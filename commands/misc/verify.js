@@ -6,7 +6,7 @@ const SqlRank = new RankDB(config.rankHost, config.rankUser, config.rankPassword
 const sql = SqlRank.getConnection();
 
 const options = {
-	options: { debug: true },
+	options: { debug: false },
 	connection: { cluster: 'aws' },
 	identity: {
 		username: 'Sirenox',
@@ -40,7 +40,7 @@ module.exports = class VerifyCommand extends Command {
 		});
 	}
 	async run(msg, args) {
-		if (msg.channel.type === 'text') return msg.reply('Dieser Command kann nur in einer DM benutzt werden.');
+		if (msg.channel.type === 'text') return msg.reply('Dieser Command kann nur in einer DM benutzt werden. Schreibe den Bot mit dem Command nochmal in einer Privaten Nachricht an.');
 
 		let user = args.user;
 
